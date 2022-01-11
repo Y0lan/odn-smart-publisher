@@ -38,7 +38,7 @@ const publish = async () => {
             filepath: './data/' + file,
             visibility: true
         }
-        dkg.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result))).catch((error) => console.log(error.message))
+        client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result))).catch((error) => console.log(error.message))
     }
 }
 
