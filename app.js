@@ -1,8 +1,6 @@
 import fs from 'fs-extra'
 import DKGClient from 'dkg-client'
 import run from "./api/get-data.js";
-import path from 'path'
-import * as url from "url";
 
 const URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
 const endpoint = '0.0.0.0'
@@ -16,8 +14,11 @@ const remove_all = () => {
 }
 
 const write = async (coins) => {
+
     if (!fs.existsSync('./data')){
         fs.mkdirSync('./data');
+    } else {
+        remove_all()
     }
 
     try {
@@ -36,6 +37,8 @@ const publish = async () => {
     for (const file of files) {
         const options = {
             filepath: './data/' + file,
+            assets: '0xABa45E475E667Cd838C0C0FEF7E46702D14d827a',
+            keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
             visibility: true
         }
         client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result))).catch((error) => console.log(error.message))
