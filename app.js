@@ -33,7 +33,7 @@ const write = async (coins) => {
             data["name"] = parse(coin["symbol"])
             data["description"] = parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
             data["MarketCap"]["value"] = parse(coin["market_cap"])
-            data["Rank"]["value"] = parse(coin["rank"])
+            data["Rank"]["value"] = parse(coin["market_cap_rank"])
             data["Price"]["value"] = parse(coin["current_price"])
             data["attributes"]["ath_change_percentage"] = parse(coin["ath_change_percentage"])
             await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
