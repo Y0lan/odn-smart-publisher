@@ -25,12 +25,12 @@ const write = async (coins) => {
             const coin = coins[rank]
             const data = await fs.readJson('./context.json')
             console.log(data)
-            data["name"] = coin["symbol"]
-            data["description"] = "price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"]
-            data["MarketCap"]["value"] = coin["market_cap"]
-            data["Rank"]["value"] = coin["rank"]
-            data["Price"]["value"] = coin["current_price"]
-            data["attributes"]["ath_change_percentage"] = coin["ath_change_percentage"]
+            data["name"] = JSON.parse(coin["symbol"])
+            data["description"] = JSON.parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
+            data["MarketCap"]["value"] = JSON.parse(coin["market_cap"])
+            data["Rank"]["value"] = JSON.parse(coin["rank"])
+            data["Price"]["value"] = JSON.parse(coin["current_price"])
+            data["attributes"]["ath_change_percentage"] = JSON.parse(coin["ath_change_percentage"])
             await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
         }
     } catch
