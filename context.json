@@ -1,5 +1,5 @@
 {
-  "@context": "https://schema.org/",
+  "@context": { "name" : "https://schema.org/name" },
   "@type": ["coingecko", "crypto","coins","data"],
   "name": "",
   "image": "http://www.example.com/anvil_executive.jpg",
