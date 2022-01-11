@@ -4,8 +4,8 @@ import run from "./api/get-data.js";
 
 const URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
 const endpoint = '0.0.0.0'
-const port = '8900'
-const options = {endpoint, port, useSSL: false, maxNumberOfRetries: 25};
+const port = 8900
+const options = {endpoint, port, useSSL: false, loglevel: 'info', maxNumberOfRetries: 25};
 
 
 const remove_all = () => {
@@ -53,12 +53,13 @@ const publish = async () => {
         const content = await fs.readJson('./data/' + file)
         const options = {
             filepath: './data/' + file,
-            assets: '0x123456789123456789123456789',
+            assets: ['0x123456789123456789123456789'],
             keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
             visibility: true
         }
         console.log("Trying to publish: \n" + content)
-        await client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result))).catch((error) => console.log(error.message))
+        await client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result)))
+            .catch((error) => console.log(error.message))
         process.exit()
     }
 }
