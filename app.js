@@ -16,6 +16,10 @@ const remove_all = () => {
 }
 
 const write = async (coins) => {
+    if (!fs.existsSync('./data')){
+        fs.mkdirSync('./data');
+    }
+
     try {
         for (let rank in coins) {
             const coin = coins[rank]
