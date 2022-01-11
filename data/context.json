@@ -1,0 +1,12 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Data",
+  "name": "Yolan Maldonado",
+  "image": "http://www.example.com/anvil_executive.jpg",
+  "description": "BREAK YOU OR DIE TRYING",
+  "mpn": "666",
+  "brand": {
+    "@type": "ORIGINTRAIL",
+    "name": "ACME"
+  }
+}

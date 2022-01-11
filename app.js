@@ -1,5 +1,6 @@
 import fs from 'fs-extra'
 import DKGClient from 'dkg-client'
+import { nodeJsonLd } from 'node-jsonld';
 import run from "./api/get-data.js";
 
 const URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -37,8 +38,9 @@ const publish = async () => {
     const files = await fs.promises.readdir('./data')
     for (const file of files) {
         const content =  await fs.readJson('./data/' + file)
+        await nodeJsonLd.compact('./data/' + file, './data/context.json', './data/publish-me.js')
         const options = {
-            filepath: './data/' + file,
+            filepath: './data/publish-me.js',
             assets: '0xABa45E475E667Cd838C0C0FEF7E46702D14d827a',
             keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
             visibility: true
