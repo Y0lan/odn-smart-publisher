@@ -14,7 +14,7 @@ const remove_all = () => {
 
 const parse = (text) => {
     console.log("parsing: \n" + text)
-    return JSON.parse('"'+ text +'"')
+    return JSON.parse('"' + text + '"')
 }
 
 const write = async (coins) => {
@@ -29,8 +29,8 @@ const write = async (coins) => {
         for (let rank in coins) {
             const coin = coins[rank]
             const data = await fs.readJson('./context.json')
-            /*
             console.log(data)
+            /*
             data["name"] = parse(coin["symbol"])
             data["description"] = parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
             data["MarketCap"]["value"] = parse(coin["market_cap"])
@@ -39,6 +39,7 @@ const write = async (coins) => {
             data["attributes"]["ath_change_percentage"] = parse(coin["ath_change_percentage"])
              */
             await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
+            process.exit()
         }
     } catch
         (error) {
