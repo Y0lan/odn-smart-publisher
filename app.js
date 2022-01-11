@@ -46,7 +46,7 @@ const publish = async () => {
         const content = await fs.readJson('./data/' + file)
         const options = {
             filepath: './data/' + file,
-            assets: '0xABa45E475E667Cd838C0C0FEF7E46702D14d827a',
+            assets: '0x123456789123456789123456789',
             keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
             visibility: true
         }
