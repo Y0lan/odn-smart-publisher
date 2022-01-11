@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org/",
+  "@type": ["coingecko", "crypto","coins","data"],
+  "name": "",
+  "description": "",
+  "MarketCap": {
+    "@type": "Number",
+    "value": 0
+  },
+  "Rank": {
+    "@type": "Number",
+    "value": 0
+  },
+  "Price": {
+    "@type": "Number",
+    "value": 0
+  },
+  "attributes": {
+    "@type": "details"
+  }
+}

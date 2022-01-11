@@ -1,6 +1,5 @@
 import fs from 'fs-extra'
 import DKGClient from 'dkg-client'
-import { nodeJsonLd } from 'node-jsonld';
 import run from "./api/get-data.js";
 
 const URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -8,7 +7,6 @@ const endpoint = '0.0.0.0'
 const port = '8900'
 const options = {endpoint, port, useSSL: false, maxNumberOfRetries: 25};
 
-const client = new DKGClient(options)
 
 const remove_all = () => {
     fs.emptydir("./data")
@@ -16,17 +14,24 @@ const remove_all = () => {
 
 const write = async (coins) => {
 
-    if (!fs.existsSync('./data')){
+    if (!fs.existsSync('./data')) {
         fs.mkdirSync('./data');
-    } else {
-        remove_all()
     }
+
+    remove_all()
 
     try {
         for (let rank in coins) {
             const coin = coins[rank]
-            delete coin['image']
-            await fs.writeJson('./data/' + rank + '.json', JSON.stringify(coin, null, 2))
+            const data = await fs.readJson('./context.json')
+            console.log(data)
+            data["name"] = coin["symbol"]
+            data["description"] = "price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"]
+            data["MarketCap"]["value"] = coin["market_cap"]
+            data["Rank"]["value"] = coin["rank"]
+            data["Price"]["value"] = coin["current_price"]
+            data["attributes"]["ath_change_percentage"] = coin["ath_change_percentage"]
+            await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
         }
     } catch
         (error) {
@@ -35,12 +40,12 @@ const write = async (coins) => {
 }
 
 const publish = async () => {
+    const client = new DKGClient(options)
     const files = await fs.promises.readdir('./data')
     for (const file of files) {
-        const content =  await fs.readJson('./data/' + file)
-        await nodeJsonLd.compact('./data/' + file, './data/context.json', './data/publish-me.js')
+        const content = await fs.readJson('./data/' + file)
         const options = {
-            filepath: './data/publish-me.js',
+            filepath: './data/' + file,
             assets: '0xABa45E475E667Cd838C0C0FEF7E46702D14d827a',
             keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
             visibility: true
