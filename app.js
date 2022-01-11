@@ -13,7 +13,10 @@ const remove_all = () => {
 }
 
 const add_brackets = (text) => '{' + text + '}'
-const parse = (text) => JSON.parse(add_brackets(text))
+const parse = (text) => {
+    console.log("parsing: \n" + text)
+    JSON.parse(add_brackets(text))
+}
 
 const write = async (coins) => {
 
