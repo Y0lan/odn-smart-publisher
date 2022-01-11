@@ -12,10 +12,9 @@ const remove_all = () => {
     fs.emptydir("./data")
 }
 
-const add_brackets = (text) => '{' + text + '}'
 const parse = (text) => {
     console.log("parsing: \n" + text)
-    JSON.parse(add_brackets(text))
+    return JSON.parse(text.toString())
 }
 
 const write = async (coins) => {
