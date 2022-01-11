@@ -12,6 +12,9 @@ const remove_all = () => {
     fs.emptydir("./data")
 }
 
+const add_brackets = (text) => '{' + text + '}'
+const parse = (text) => JSON.parse(add_brackets(text))
+
 const write = async (coins) => {
 
     if (!fs.existsSync('./data')) {
@@ -25,12 +28,12 @@ const write = async (coins) => {
             const coin = coins[rank]
             const data = await fs.readJson('./context.json')
             console.log(data)
-            data["name"] = JSON.parse(coin["symbol"])
-            data["description"] = JSON.parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
-            data["MarketCap"]["value"] = JSON.parse(coin["market_cap"])
-            data["Rank"]["value"] = JSON.parse(coin["rank"])
-            data["Price"]["value"] = JSON.parse(coin["current_price"])
-            data["attributes"]["ath_change_percentage"] = JSON.parse(coin["ath_change_percentage"])
+            data["name"] = parse( add_brackets(coin["symbol"]))
+            data["description"] = parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
+            data["MarketCap"]["value"] = parse(coin["market_cap"])
+            data["Rank"]["value"] = parse(coin["rank"])
+            data["Price"]["value"] = parse(coin["current_price"])
+            data["attributes"]["ath_change_percentage"] = parse(coin["ath_change_percentage"])
             await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
         }
     } catch
