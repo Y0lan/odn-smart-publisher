@@ -35,12 +35,14 @@ const write = async (coins) => {
 const publish = async () => {
     const files = await fs.promises.readdir('./data')
     for (const file of files) {
+        const content =  fs.readJson('./data/' + file)
         const options = {
             filepath: './data/' + file,
             assets: '0xABa45E475E667Cd838C0C0FEF7E46702D14d827a',
             keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
             visibility: true
         }
+        console.log("Trying to publish: \n" + content)
         client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result))).catch((error) => console.log(error.message))
     }
 }
