@@ -24,6 +24,7 @@ const write = async (coins) => {
     try {
         for (let rank in coins) {
             const coin = coins[rank]
+            delete coin['image']
             await fs.writeJson('./data/' + rank + '.json', JSON.stringify(coin, null, 2))
         }
     } catch
