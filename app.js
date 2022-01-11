@@ -39,7 +39,6 @@ const write = async (coins) => {
             data["attributes"]["ath_change_percentage"] = parse(coin["ath_change_percentage"])
              */
             await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
-            process.exit()
         }
     } catch
         (error) {
@@ -60,6 +59,7 @@ const publish = async () => {
         }
         console.log("Trying to publish: \n" + content)
         client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result))).catch((error) => console.log(error.message))
+        process.exit()
     }
 }
 
