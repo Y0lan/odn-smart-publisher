@@ -5,9 +5,9 @@ import run from "./api/get-data.js";
 const URL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
 const endpoint = '0.0.0.0'
 const port = '8900'
-const OPTIONS = {endpoint, port, useSSL: false, maxNumberOfRetries: 25};
+const options = {endpoint, port, useSSL: false, maxNumberOfRetries: 25};
 
-const client = new DKGClient(OPTIONS)
+const client = new DKGClient(options)
 
 const remove_all = () => {
     fs.emptydir("./data")
