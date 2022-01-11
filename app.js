@@ -30,7 +30,7 @@ const write = async (coins) => {
             const coin = coins[rank]
             const data = await fs.readJson('./context.json')
             console.log(data)
-            data["name"] = parse( add_brackets(coin["symbol"]))
+            data["name"] = parse(coin["symbol"])
             data["description"] = parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
             data["MarketCap"]["value"] = parse(coin["market_cap"])
             data["Rank"]["value"] = parse(coin["rank"])
