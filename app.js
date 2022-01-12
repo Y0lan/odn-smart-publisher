@@ -29,16 +29,15 @@ const write = async (coins) => {
         for (let rank in coins) {
             const coin = coins[rank]
             const data = await fs.readJson('./context.json')
-            console.log(data)
-            /*
-            data["name"] = parse(coin["symbol"])
-            data["description"] = parse("price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"])
-            data["MarketCap"]["value"] = parse(coin["market_cap"])
-            data["Rank"]["value"] = parse(coin["market_cap_rank"])
-            data["Price"]["value"] = parse(coin["current_price"])
-            data["attributes"]["ath_change_percentage"] = parse(coin["ath_change_percentage"])
-             */
-            await fs.writeJson('./data/' + rank + '.json', JSON.stringify(data, null, 2))
+            data["name"] = coin["symbol"]
+            data["description"] = "price of: " + coin["symbol"] + " (" + coin["id"] + ") " + " at " + coin["last_updated"]
+            data["MarketCap"]["value"] = coin["market_cap"]
+            data["Rank"]["value"] = coin["market_cap_rank"]
+            data["Price"]["value"] = coin["current_price"]
+            data["attributes"]["ath_change_percentage"] = coin["ath_change_percentage"]
+            data["image"] = coin["image"]
+
+            await fs.writeJson('./data/' + rank + '.json', data)
         }
     } catch
         (error) {
@@ -54,13 +53,12 @@ const publish = async () => {
         const options = {
             filepath: './data/' + file,
             assets: ['0x123456789123456789123456789'],
-            keywords: ["CoinGecko Data", "Yolan Maldonado", "Price"],
+            keywords: ['CoinGecko Data', 'Yolan Maldonado', 'Price'],
             visibility: true
         }
-        console.log("Trying to publish: \n" + content)
+        console.log("Trying to publish: \n" + JSON.stringify(content))
         await client.publish(options).then((result) => console.log("Successfully published : \n" + JSON.stringify(result)))
             .catch((error) => console.log(error.message))
-        process.exit()
     }
 }
 
