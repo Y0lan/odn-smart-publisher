@@ -12,11 +12,6 @@ const remove_all = () => {
     fs.emptydir("./data")
 }
 
-const parse = (text) => {
-    console.log("parsing: \n" + text)
-    return JSON.parse('"' + text + '"')
-}
-
 const write = async (coins) => {
 
     if (!fs.existsSync('./data')) {
